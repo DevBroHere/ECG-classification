@@ -71,7 +71,7 @@ def create_model(activation='selu', init_mode='he_uniform', neurons_enter=95, ne
     return model
 
 
-def prepareData(df):
+def prepare_data(df):
     """The function is responsible for encoding class labels and inserting missing data
 
     Parameters
@@ -299,7 +299,7 @@ df = pd.read_csv("ecg_data_all.csv")
 indexNames = df[df["Class"] == "VFL"].index
 df.drop(indexNames, inplace=True)
 
-X, y, class_mapping = prepareData(df)
+X, y, class_mapping = prepare_data(df)
 
 # create model for grid_search
 model = KerasClassifier(build_fn=create_model, epochs=20, verbose=2, batch_size=5)

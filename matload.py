@@ -11,7 +11,7 @@ from pathlib import Path
 warnings.filterwarnings("ignore")
 
 
-def calculateTime(list_offsets, list_onsets):
+def calculate_time(list_offsets, list_onsets):
     """The function calculates the median the median duration of the given peaks
 
     Parameters
@@ -48,7 +48,7 @@ def calculateTime(list_offsets, list_onsets):
         pass
 
 
-def analyzeECG(ecg, sampling_rate, method="dwt"):
+def analyze_ECG(ecg, sampling_rate, method="dwt"):
     """The function returns analysis parameters that can be used for display and further analysis.
 Returns heart rate, average HRV, HRVSDNN, HRVRMSSD, wave related information (length, time, amplitude).
 
@@ -139,9 +139,9 @@ Returns heart rate, average HRV, HRVSDNN, HRVRMSSD, wave related information (le
                 T_offsets[1].append(ecg[1][i])
 
     # Calculating duration of the ECG waves
-    P_Time = calculateTime(P_offsets[0], P_onsets[0])
-    QRS_Time = calculateTime(R_offsets[0], R_onsets[0])
-    T_Time = calculateTime(T_offsets[0], T_onsets[0])
+    P_Time = calculate_time(P_offsets[0], P_onsets[0])
+    QRS_Time = calculate_time(R_offsets[0], R_onsets[0])
+    T_Time = calculate_time(T_offsets[0], T_onsets[0])
 
     # ECG wave amplitudes
     P_Amplitude = np.mean(P_peaks[1])
@@ -151,12 +151,12 @@ Returns heart rate, average HRV, HRVSDNN, HRVRMSSD, wave related information (le
     T_Amplitude = np.mean(T_peaks[1])
 
     # ECG intervals
-    PQ_Space = calculateTime(R_onsets[0], P_onsets[0])
-    QT_Space = calculateTime(T_offsets[0], R_onsets[0])
+    PQ_Space = calculate_time(R_onsets[0], P_onsets[0])
+    QT_Space = calculate_time(T_offsets[0], R_onsets[0])
 
     # ECG segments
-    PQ_Segment = calculateTime(R_onsets[0], P_offsets[0])
-    ST_Segment = calculateTime(T_onsets[0], R_offsets[0])
+    PQ_Segment = calculate_time(R_onsets[0], P_offsets[0])
+    ST_Segment = calculate_time(T_onsets[0], R_offsets[0])
 
     # Dictionaries with acquired informations
     data = {}
@@ -241,7 +241,7 @@ Returns heart rate, average HRV, HRVSDNN, HRVRMSSD, wave related information (le
     return data, info
 
 
-def showData(ecg, data):
+def show_data(ecg, data):
     """Function for displaying analyzed data
 
     Parameters
@@ -271,7 +271,7 @@ def showData(ecg, data):
     plt.show()
 
 
-def extractFeatures(dict, path, classification):
+def extract_features(dict, path, classification):
     """Function responsible for signal processing and feature extraction
 
     Parameters
@@ -306,7 +306,7 @@ def extractFeatures(dict, path, classification):
 
         ecg = [x, y]
         try:
-            data, info = analyzeECG(ecg, 360)
+            data, info = analyze_ECG(ecg, 360)
             for j in range(len(info)):
                 dict[list(info.keys())[j]].append(list(info.values())[j])
             dict[list(dict.keys())[-1]].append(classification)
@@ -357,7 +357,7 @@ for path, name in zip(path_list, name_list):
     print("**********")
     print("Extracting: ", path)
     print("**********")
-    ecg_data = extractFeatures(ecg_data, path, name)
+    ecg_data = extract_features(ecg_data, path, name)
 df = pd.DataFrame(ecg_data)
 print(df)
 df.to_csv(r"C:\Users\cezar\Desktop\Studia\Inżynier\ecg_data_all.csv", index=False)

@@ -38,7 +38,7 @@ df = pd.read_csv(PATH)
 NAMES = df.columns
 
 
-def prepareData(df):
+def prepare_data(df):
     """The function is responsible for encoding class labels and inserting missing data
 
     Parameters
@@ -442,7 +442,7 @@ indexNames = df[df["Class"] == "VFL"].index
 df.drop(indexNames, inplace=True)
 
 # Preparation of data for the learning process: class coding, imputation
-X, y, class_mapping = prepareData(df)
+X, y, class_mapping = prepare_data(df)
 
 # Standaryzacja i skalowanie wektorów uczących
 scaler = preprocessing.StandardScaler()

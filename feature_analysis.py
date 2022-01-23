@@ -19,7 +19,7 @@ df = pd.read_csv(PATH)
 NAMES = df.columns
 
 
-def prepareData(dataFrame):
+def prepare_data(dataFrame):
     """The function is responsible for encoding class labels and inserting missing data
 
         Parameters
@@ -133,7 +133,7 @@ def pairplot(data, method):
 # histogram_plot(df)
 # pairplot(df[["QRS_Time", "HRV_MeanNN", "Class"]], "Class")
 
-# X, y, class_mapping = prepareData(df)
+# X, y, class_mapping = prepare_Data(df)
 
 # Distribution of classes
 # class_distribution(y, class_mapping)
